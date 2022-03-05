@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WaterDataAPI.Data;
 using WaterDataAPI.Models;
 using WaterDataAPI.Models.Concrete;
 
@@ -8,51 +10,58 @@ namespace WaterDataAPI.Controllers
     [ApiController]
     public class ChannelController : Controller
     {
-        private static List<Channel> channels= new List<Channel>
-            {
-                new Channel{ Id =1, Name ="River1"},
-                new Channel{ Id =2, Name ="River2"}
-            };
+        private readonly DataContext _context;
+        public ChannelController(DataContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet]
         public async Task<ActionResult<List<Channel>>> Get()
         {
            
-            return Ok(channels);
+            return Ok(await _context.Channels.ToListAsync());
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Channel>> Get(int id)
         {
-            var river = channels.Find(r => r.Id== id);
-            if (river == null) return BadRequest("River not found");
+            var chan =await _context.Channels.FindAsync(id);
+            if (chan == null) return BadRequest("Channel not found");
 
-            return Ok(river);
+            return Ok(chan);
         }
         [HttpPost]
         public async Task<ActionResult<List<Channel>>> AddRiver(Channel river)
         {
-            channels.Add(river);
-            return Ok(channels);
+            _context.Channels.Add(river);
+            await _context.SaveChangesAsync();
+            return Ok(_context.Channels.ToListAsync());
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<ActionResult<List<Channel>>> UpdateRiver([FromBody] Channel request)
         {
-            var channel = channels.Find(r => r.Id == request.Id);
-            if (channel == null) return BadRequest("River not found");
-
-            //river.Lat = request.Lat;
-            //river.Lon = request.Lon;
-            //river.StandardWaterLevel = request.StandardWaterLevel;
-            //river.WaterFlow = request.WaterFlow; 
-            channel.CriticalWaterLevel = request.CriticalWaterLevel;
-            channel.Name = request.Name;
-            channel.CurrentWaterHeight = request.CurrentWaterHeight;
-            channel.PollutionLevel = request.PollutionLevel;
-            channel.StandardWaterHeight = request.StandardWaterHeight;
-            channel.Id = request.Id;
-
-            return Ok(channels);
+            var chan = await _context.Channels.FindAsync(request.Id);
+            if (chan == null) return BadRequest("Channel not found");
+            chan.CriticalWaterLevel = request.CriticalWaterLevel;
+            chan.Name = request.Name;
+            chan.CurrentWaterHeight = request.CurrentWaterHeight;
+            chan.PollutionLevel = request.PollutionLevel;
+            chan.StandardWaterHeight = request.StandardWaterHeight;
+            chan.Id = request.Id;
+            await _context.SaveChangesAsync();
+            return Ok(_context.Channels.ToListAsync());
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<Channel>>> Delete(int id)
+        {
+            var channel = await _context.Channels.FindAsync(id);
+            if (channel == null) return BadRequest("Channel not found");
+            _context.Channels.Remove(channel);
+            await _context.SaveChangesAsync();
+            return Ok(_context.Channels.ToListAsync());
+
+        }
+
     }
 }

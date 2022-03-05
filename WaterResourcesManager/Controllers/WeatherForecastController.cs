@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace WaterDataAPI.Controllers
+namespace WaterResourcesManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]

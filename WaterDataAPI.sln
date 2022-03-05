@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterDataAPI", "WaterDataAPI\WaterDataAPI.csproj", "{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterDataAPI", "WaterDataAPI\WaterDataAPI.csproj", "{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterResourceManager", "WaterResourceManager\WaterResourceManager.csproj", "{D1AF134C-07AA-49E0-82C6-457146D3FB42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{24EE7490-86E8-43D7-A0F3-240FC58699A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{24EE7490-86E8-43D7-A0F3-240FC58699A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterResourcesManager", "WaterResourcesManager\WaterResourcesManager.csproj", "{BE1028C3-A670-448C-AE52-293313ED40D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Release|Any CPU.Build.0 = Release|Any CPU
 		{24EE7490-86E8-43D7-A0F3-240FC58699A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24EE7490-86E8-43D7-A0F3-240FC58699A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24EE7490-86E8-43D7-A0F3-240FC58699A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24EE7490-86E8-43D7-A0F3-240FC58699A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE1028C3-A670-448C-AE52-293313ED40D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE1028C3-A670-448C-AE52-293313ED40D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE1028C3-A670-448C-AE52-293313ED40D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE1028C3-A670-448C-AE52-293313ED40D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
