@@ -1,6 +1,6 @@
-﻿using WaterDataAPI.Models.Abstract;
+﻿using UI.Models.Abstract;
 
-namespace WaterDataAPI.Models
+namespace UI.Models
 {
     public class River:NaturalWaterResource
     {

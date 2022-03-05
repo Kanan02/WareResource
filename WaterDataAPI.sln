@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterDataAPI", "WaterDataAP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterResourceManager", "WaterResourceManager\WaterResourceManager.csproj", "{D1AF134C-07AA-49E0-82C6-457146D3FB42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{24EE7490-86E8-43D7-A0F3-240FC58699A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24EE7490-86E8-43D7-A0F3-240FC58699A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24EE7490-86E8-43D7-A0F3-240FC58699A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24EE7490-86E8-43D7-A0F3-240FC58699A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24EE7490-86E8-43D7-A0F3-240FC58699A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿namespace WaterDataAPI.Models.Abstract
+﻿using System;
+namespace UI.Models.Abstract
 {
     public abstract class WaterResource
     {
