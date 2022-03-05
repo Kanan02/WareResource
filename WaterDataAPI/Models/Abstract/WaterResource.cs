@@ -4,7 +4,6 @@
     {
         public int Id { get; set; }
         public string? Name { get; set; } = String.Empty;
-        public double Lat { get; set; }
-        public double Lon { get; set; }
+        public double PollutionLevel { get; set; }  // In Ph
     }
 }
