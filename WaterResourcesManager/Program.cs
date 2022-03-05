@@ -20,4 +20,4 @@
 using WaterResourcesManager;
 
 LitresForAreaCounter counter = new LitresForAreaCounter();
-counter.CalculateLitres(0, 0, "", "Baku");
+counter.CalculateLitres(0, "", "", "Baku");
