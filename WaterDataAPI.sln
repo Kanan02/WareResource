@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterDataAPI", "WaterDataAPI\WaterDataAPI.csproj", "{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterResourceManager", "WaterResourceManager\WaterResourceManager.csproj", "{D1AF134C-07AA-49E0-82C6-457146D3FB42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEB192AE-492C-4A12-84D6-5C726C4DEDF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1AF134C-07AA-49E0-82C6-457146D3FB42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {929051A9-A804-4C1A-90C9-C7FC1DE5DE8C}
+	EndGlobalSection
+EndGlobal
