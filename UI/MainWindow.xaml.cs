@@ -33,12 +33,11 @@ namespace UI
             client.DefaultRequestHeaders.Accept.Add(
                 new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
             );
-
         }
         private async void GetAllRivers()
         {
 
-            var response = await client.GetStringAsync("River");
+            var response = await client.GetStringAsync("Channel");
             var rivers = JsonConvert.DeserializeObject<List<River>>(response);
             dataGrid1.DataContext= rivers;
 
@@ -46,7 +45,7 @@ namespace UI
         private async void UpdateRiver(River river)
         {
 
-             await client.PutAsJsonAsync("river/"+river.Id,river);
+             await client.PutAsJsonAsync("channel/"+river.Id,river);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -57,5 +56,13 @@ namespace UI
             }
 
         }
+        private async void GetLitres(double area,int productId,string fieldName)
+        {
+
+            XXXXX.CalclateLitres(area, product, fieldName);
+            await client.PutAsJsonAsync("channel/" + river.Id, river);
+        }
+
+
     }
 }
