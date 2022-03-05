@@ -25,12 +25,12 @@
                       
                       >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"></DataGridTextColumn>
+                   <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Lat" Binding="{Binding Path=Lat}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Lon" Binding="{Binding Path=Lon}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="StandardWaterLevel" Binding="{Binding Path=StandardWaterLevel}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="CurrentWaterLevel" Binding="{Binding Path=CurrentWaterLevel}"></DataGridTextColumn>
+                    <!--<DataGridTextColumn Header="StandardWaterLevel" Binding="{Binding Path=StandardWaterLevel}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="CurrentWaterLevel" Binding="{Binding Path=CurrentWaterLevel}"></DataGridTextColumn>-->
 
                 </DataGrid.Columns>
             </DataGrid>
