@@ -37,7 +37,7 @@ namespace WaterDataAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<WaterReservoir>>> UpdateRiver([FromBody] WaterReservoir request)
+        public async Task<ActionResult<List<WaterReservoir>>> Update([FromBody] WaterReservoir request)
         {
             var res = await _context.WaterReservoirs.FindAsync(request.Id);
             if (res == null) return BadRequest("WaterReservoir not found");

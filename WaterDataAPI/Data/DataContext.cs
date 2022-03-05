@@ -29,7 +29,9 @@ namespace WaterDataAPI.Data
         public DbSet<GroundWaterReservoir> GroundWaterReservoirs { get; set; }
         public DbSet<RainWaterReservoir> RainWaterReservoirs { get; set; }
         public DbSet<WaterReservoir> WaterReservoirs { get; set; }
+        public DbSet<Farm> Farms { get; set; }
         public DbSet<Field> Fields { get; set; }
+        
 
     }
 }

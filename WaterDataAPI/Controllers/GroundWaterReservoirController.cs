@@ -37,7 +37,7 @@ namespace WaterDataAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<GroundWaterReservoir>>> UpdateRiver([FromBody] GroundWaterReservoir request)
+        public async Task<ActionResult<List<GroundWaterReservoir>>> Update([FromBody] GroundWaterReservoir request)
         {
             var res = await _context.GroundWaterReservoirs.FindAsync(request.Id);
             if (res == null) return BadRequest("Channel not found");

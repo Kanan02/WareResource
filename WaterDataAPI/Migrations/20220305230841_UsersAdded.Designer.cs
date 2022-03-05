@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WaterDataAPI.Data;
 
@@ -10,9 +11,10 @@ using WaterDataAPI.Data;
 namespace WaterDataAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220305230841_UsersAdded")]
+    partial class UsersAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,25 +69,6 @@ namespace WaterDataAPI.Migrations
                             PollutionLevel = 0.0,
                             StandardWaterHeight = 0.0
                         });
-                });
-
-            modelBuilder.Entity("WaterDataAPI.Models.Concrete.Farm", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Farms");
                 });
 
             modelBuilder.Entity("WaterDataAPI.Models.Concrete.Field", b =>
@@ -198,6 +181,25 @@ namespace WaterDataAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RainWaterReservoirs");
+                });
+
+            modelBuilder.Entity("WaterDataAPI.Models.Concrete.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("WaterDataAPI.Models.Concrete.WaterReservoir", b =>

@@ -120,12 +120,7 @@ namespace WaterResourcesManager
                 
                 Console.WriteLine(p);
                 Console.WriteLine(tmean);
-
             }
-
-
-
-
             return 0;
         }
     }

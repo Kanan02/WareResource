@@ -31,7 +31,7 @@ namespace WaterDataAPI.Controllers
             return Ok(chan);
         }
         [HttpPost]
-        public async Task<ActionResult<List<Channel>>> AddRiver(Channel river)
+        public async Task<ActionResult<List<Channel>>> Add(Channel river)
         {
             _context.Channels.Add(river);
             await _context.SaveChangesAsync();
@@ -39,7 +39,7 @@ namespace WaterDataAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<Channel>>> UpdateRiver([FromBody] Channel request)
+        public async Task<ActionResult<List<Channel>>> Update([FromBody] Channel request)
         {
             var chan = await _context.Channels.FindAsync(request.Id);
             if (chan == null) return BadRequest("Channel not found");
