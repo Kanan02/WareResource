@@ -59,8 +59,8 @@ namespace UI
         private async void GetLitres(double area,int productId,string fieldName)
         {
 
-            XXXXX.CalclateLitres(area, product, fieldName);
-            await client.PutAsJsonAsync("channel/" + river.Id, river);
+           // XXXXX.CalclateLitres(area, product, fieldName);
+           // await client.PutAsJsonAsync("channel/" + river.Id, river);
         }
 
 
