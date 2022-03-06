@@ -45,7 +45,7 @@ namespace WaterResourcesManager
         ///  Check if rain reservoir is empty
         ///  If false use rain water(add resource and used amount of water to table)
         /// </summary>
-        private void DistributeRainWaterReservoir(Dictionary<WaterResource, double> waterDistributionTable)
+        private void DistributeRainWaterReservoir(Dictionary<WaterResource, double> waterDistributionTable, double minPh, double maxPh)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace WaterResourcesManager
                 {
                     if (_waterResources[i].GetType() == typeof(RainWaterReservoir))
                     {
-                        if (!(_waterResources[i] as RainWaterReservoir).IsEmpty())
+                        if (!(_waterResources[i] as RainWaterReservoir).IsEmpty() && _waterResources[i].PollutionLevel >= minPh && _waterResources[i].PollutionLevel <= maxPh)
                         {
                             double waterInReservoir = (_waterResources[i] as RainWaterReservoir).GetCurrentWaterVolume() * 1000;  // conversion from m3 to litres
                             if (_waterLeft - waterInReservoir <= 0)
@@ -86,7 +86,7 @@ namespace WaterResourcesManager
         ///  Check if ground reservoir is empty
         ///  If false use ground water(add resource and used amount of water to table)
         /// </summary>
-        private void DistributeGroundWaterReservoir(Dictionary<WaterResource, double> waterDistributionTable)
+        private void DistributeGroundWaterReservoir(Dictionary<WaterResource, double> waterDistributionTable, double minPh, double maxPh)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace WaterResourcesManager
                 {
                     if (_waterResources[i].GetType() == typeof(GroundWaterReservoir))
                     {
-                        if (!(_waterResources[i] as GroundWaterReservoir).IsEmpty())
+                        if (!(_waterResources[i] as GroundWaterReservoir).IsEmpty() && _waterResources[i].PollutionLevel >= minPh && _waterResources[i].PollutionLevel <= maxPh)
                         {
                             double waterInReservoir = (_waterResources[i] as GroundWaterReservoir).GetCurrentWaterVolume() * 1000;  // conversion from m3 to litres
                             if (_waterLeft - waterInReservoir <= 0)
@@ -126,8 +126,8 @@ namespace WaterResourcesManager
         /// Check if channel water height is higher, than critical height
         /// If true use channel water
         /// </summary>
-        /// <returns></returns>
-        private void DistributeChannelWater(Dictionary<WaterResource, double> waterDistributionTable)
+        /// <returns>percent of water taken</returns>
+        private void DistributeChannelWater(Dictionary<WaterResource, double> waterDistributionTable, double minPh, double maxPh)
         {
             try
             {
@@ -135,10 +135,20 @@ namespace WaterResourcesManager
                 {
                     if (_waterResources[i].GetType() == typeof(Channel))
                     {
-                        if ((_waterResources[i] as Channel).CurrentWaterHeight > (_waterResources[i] as Channel).CriticalWaterLevel)
+                        if ((_waterResources[i] as Channel).CurrentWaterHeight > (_waterResources[i] as Channel).CriticalWaterLevel
+                            && _waterResources[i].PollutionLevel >= minPh && _waterResources[i].PollutionLevel <= maxPh)
                         {
                             waterDistributionTable.Add(_waterResources[i], _waterLeft);
                             _waterLeft = 0;
+                        }
+                        else if ((_waterResources[i] as Channel).CurrentWaterHeight > (_waterResources[i] as Channel).CriticalWaterLevel)
+                        {
+                            waterDistributionTable.Add(_waterResources[i], _waterLeft * 0.2);
+                            _waterLeft -= _waterLeft * 0.2;
+                        }
+                        else
+                        {
+                            waterDistributionTable.Add(_waterResources[i], 0);
                         }
                     }
                 }
@@ -192,32 +202,34 @@ namespace WaterResourcesManager
         }
 
 
+
         public Dictionary<WaterResource, double> FindBestDistribution()
         {
-
-
             Dictionary<WaterResource, double> waterDistributionTable = new Dictionary<WaterResource, double>();
 
             try
             {
-                DistributeRainWaterReservoir(waterDistributionTable);
+                double minPh = 6.5;
+                double maxPh = 8.5;
+
+                DistributeRainWaterReservoir(waterDistributionTable, minPh, maxPh);
 
 
-                if (_waterLeft >= 0)
-                    DistributeGroundWaterReservoir(waterDistributionTable);
+                if (_waterLeft > 0)
+                    DistributeGroundWaterReservoir(waterDistributionTable, minPh, maxPh);
+
+
+                if (_waterLeft > 0)
+                    DistributeChannelWater(waterDistributionTable, minPh, maxPh);
 
 
 
-                if (_waterLeft >= 0)
-                    DistributeChannelWater(waterDistributionTable);
-
-
-              
-                if (_waterLeft >= 0)
+                if (_waterLeft > 0)
                     DistributeWaterReservoir(waterDistributionTable);
 
 
-                if (_waterLeft >= 0)
+
+                if (_waterLeft > 0)
                     DistributeChannelWaterCRITICAL(waterDistributionTable);
 
             }
