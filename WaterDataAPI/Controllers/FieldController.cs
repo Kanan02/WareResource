@@ -19,7 +19,7 @@ namespace WaterDataAPI.Controllers
         public async Task<ActionResult<List<Field>>> Get()
         {
 
-            return Ok(await _context.WaterReservoirs.ToListAsync());
+            return Ok(await _context.Fields.ToListAsync());
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Field>> Get(int id)

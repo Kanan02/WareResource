@@ -207,7 +207,9 @@ namespace UI
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-
+            var response = client.GetStringAsync($"Field/{((ComboBoxItem)FieldsListCB.SelectedItem).Tag}").Result;
+            Field? field = JsonConvert.DeserializeObject<Field>(response);
+            MessageBox.Show(field.Name.ToString());
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
