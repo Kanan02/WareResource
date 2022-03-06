@@ -256,9 +256,7 @@
                         </Button>
                     </Grid>
                     <ScrollViewer x:Name="reservoirResultsScrollView" VerticalScrollBarVisibility="Visible" Focusable="False" Margin="10" Grid.Row="7" Background="LightGray">
-                        <Grid x:Name="reservoirsResultsGrid" Grid.Row="1" Margin="10">
-
-                        </Grid>
+                        <TextBlock x:Name="ResTextBlock"></TextBlock>
                     </ScrollViewer>
                 </Grid>
             </Border>
@@ -318,9 +316,7 @@
                         </Button>
                     </Grid>
                     <ScrollViewer x:Name="fieldsResultsScrollView" VerticalScrollBarVisibility="Visible" Focusable="False" Margin="10" Grid.Row="6" Background="LightGray">
-                        <Grid x:Name="fieldsResultsGrid" Grid.Row="1" Margin="10">
-
-                        </Grid>
+                        <TextBlock x:Name="FieldTextBlock"></TextBlock>
                     </ScrollViewer>
                 </Grid>
             </Border>

@@ -183,25 +183,34 @@ namespace UI
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             string typeofWaterBody = WaterBodiesTypesListCB.Text;
+            ResTextBlock.FontSize = 20;
             if (typeofWaterBody == "Channel")
             {
                 var responseChannels = client.GetStringAsync($"Channel/{((ComboBoxItem)WaterBodiesListCB.SelectedItem).Tag}").Result;
                 Channel? channel = JsonConvert.DeserializeObject<Channel>(responseChannels);
+                ResTextBlock.Text="Name: "+channel.Name+ "\nStandard water level: " + channel.StandardWaterHeight + "\nCritical Water level: " +channel.CriticalWaterLevel+
+                    "\nCurrent channel level: " + channel.CurrentWaterHeight+"\nPollution level: "+channel.PollutionLevel;
             }
             else if (typeofWaterBody == "GroundWaterReservoir")
             {
                 var responseGrounds = client.GetStringAsync($"GroundWaterReservoir/{((ComboBoxItem)WaterBodiesListCB.SelectedItem).Tag}").Result;
                 GroundWaterReservoir? ground = JsonConvert.DeserializeObject<GroundWaterReservoir>(responseGrounds);
+                ResTextBlock.Text = "Name: " + ground.Name + "\nLength: " + ground.Length + "\nWidth: " + ground.Width + "\nHeight: " + ground.Height+
+                    "\nCurrent water height: " + ground.CurrentWaterLevel + "\nPollution level: " + ground.PollutionLevel;
             }
             else if (typeofWaterBody == "RainWaterReservoir")
             {
                 var responseRains = client.GetStringAsync($"RainWaterReservoir/{((ComboBoxItem)WaterBodiesListCB.SelectedItem).Tag}").Result;
                 RainWaterReservoir? rain = JsonConvert.DeserializeObject<RainWaterReservoir>(responseRains);
+                ResTextBlock.Text = "Name: " + rain.Name + "\nLength: " + rain.Length + "\nWidth: " + rain.Width + "\nHeight: " + rain.Height +
+                   "\nCurrent water height: " + rain.CurrentWaterLevel + "\nPollution level: " + rain.PollutionLevel;
             }
+
             else if (typeofWaterBody == "WaterReservoir")
             {
                 var responseReserv = client.GetStringAsync($"WaterReservoir/{((ComboBoxItem)WaterBodiesListCB.SelectedItem).Tag}").Result;
                 WaterReservoir? reservoir = JsonConvert.DeserializeObject<WaterReservoir>(responseReserv);
+                ResTextBlock.Text = "Name: " + reservoir.Name + "\nPollution level: " + reservoir.PollutionLevel;
             }
         }
 
@@ -210,6 +219,8 @@ namespace UI
             var response = client.GetStringAsync($"Field/{((ComboBoxItem)FieldsListCB.SelectedItem).Tag}").Result;
             Field? field = JsonConvert.DeserializeObject<Field>(response);
             MessageBox.Show(field.Name.ToString());
+            FieldTextBlock.FontSize = 20;
+            FieldTextBlock.Text= "Name: " + field.Name+"\nPERC: "+ field.PERC + "\nSAT: " + field.SAT+"\nWl: " + field.Wl + "\nStage: " + field.Stage;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
