@@ -33,9 +33,9 @@ using WaterResourcesManager.Models.Concrete;
 
 // Gound water has more than needed
 
-Channel channel = new Channel { StandardWaterHeight = 10, CriticalWaterLevel = 10, CurrentWaterHeight = 10 };
-RainWaterReservoir rainWaterReservoir = new RainWaterReservoir { Height = 10, Width = 0.1, Length = 0.1, CurrentWaterLevel = 10 };
-GroundWaterReservoir groundWaterReservoir = new GroundWaterReservoir { Height = 10, Width = 10, Length = 10, CurrentWaterLevel = 10 };
+Channel channel = new Channel { StandardWaterHeight = 9, CriticalWaterLevel = 5, CurrentWaterHeight = 10, PollutionLevel=7};
+RainWaterReservoir rainWaterReservoir = new RainWaterReservoir { Height = 10, Width = 3, Length = 3, CurrentWaterLevel = 6, PollutionLevel=6.5};
+GroundWaterReservoir groundWaterReservoir = new GroundWaterReservoir { Height = 10, Width = 2, Length =5, CurrentWaterLevel = 7, PollutionLevel = 8.3 };
 WaterReservoir waterReservoir = new WaterReservoir();
 
 
@@ -78,7 +78,7 @@ waterResources.Add(rainWaterReservoir);
 waterResources.Add(groundWaterReservoir);
 waterResources.Add(waterReservoir);
 
-LitresDistribution litresDistribution = new LitresDistribution(100, "tomato", "", "Baku", waterResources);
+LitresDistribution litresDistribution = new LitresDistribution(45000, "tomato", "", "Baku", waterResources);
 Dictionary<WaterResource, double> result = litresDistribution.FindBestDistribution();
 int a;
 a = 5;
