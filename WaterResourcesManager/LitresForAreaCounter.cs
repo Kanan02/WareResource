@@ -87,7 +87,7 @@ namespace WaterResourcesManager
             ["cucumber"] = new List<double> { 0.45, 0.7, 0.9, 0.75 }
         };
 
-        public double CalculateLitres(double area,string product, string fieldName, string city)
+        public double CalculateLitres(double area,string product, int fieldId, string city)
         {
             var request = new HttpRequestMessage
             {
@@ -134,7 +134,7 @@ namespace WaterResourcesManager
             _client.DefaultRequestHeaders.Accept.Add(
                 new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
             );
-            var response2 = _client.GetStringAsync("Field/1").Result;
+            var response2 = _client.GetStringAsync($"Field/{fieldId}").Result;
             Field? field = JsonConvert.DeserializeObject<Field>(response2);
 
 

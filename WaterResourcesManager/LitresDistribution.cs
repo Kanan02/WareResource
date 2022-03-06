@@ -1,5 +1,4 @@
-﻿using WaterDataAPI.Models.Concrete;
-using WaterResourcesManager.Models.Abstract;
+﻿using WaterResourcesManager.Models.Abstract;
 using WaterResourcesManager.Models.Concrete;
 
 namespace WaterResourcesManager
@@ -24,20 +23,20 @@ namespace WaterResourcesManager
         private string _city;
 
 
-        public LitresDistribution(double area, string product, string fieldname, string city, List<WaterResource> resourcesUsed)
+        public LitresDistribution(double area, string product, int fieldId, string city, List<WaterResource> resourcesUsed)
         {
             _waterResources = resourcesUsed;
-            _neededWater = GetAmountOfWaterUsage(area, product, fieldname, city);
+            _neededWater = GetAmountOfWaterUsage(area, product, fieldId, city);
             _waterLeft = _neededWater;
             _city = city;
         }
 
 
-        private double GetAmountOfWaterUsage(double area, string product, string fieldname, string city)
+        private double GetAmountOfWaterUsage(double area, string product, int fieldId, string city)
         {
             LitresForAreaCounter litresForAreaCounter = new LitresForAreaCounter();
 
-            return litresForAreaCounter.CalculateLitres(area, product, fieldname, city);
+            return litresForAreaCounter.CalculateLitres(area, product, fieldId, city);
         }
 
 

@@ -1,6 +1,6 @@
 ﻿using WaterResourcesManager.Models.Abstract;
 
-namespace WaterDataAPI.Models.Concrete
+namespace WaterResourcesManager.Models.Concrete
 {
     /* KOLODEC */
     public class GroundWaterReservoir : PrivateWaterResources

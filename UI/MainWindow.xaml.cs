@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WaterResourcesManager.Models.Abstract;
 using WaterResourcesManager.Models.Concrete;
+using WaterResourcesManager;
 
 namespace UI
 {
@@ -37,7 +38,30 @@ namespace UI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //ShowWaterDistrib();
+            //var response = client.GetStringAsync($"Farm/2").Result;
+            //Field? field = JsonConvert.DeserializeObject<Field>(response);
+            List<WaterResource> listWates = new List<WaterResource>();
+            listWates.Add(new GroundWaterReservoir()
+            {
+                Id = 1,
+                Name = "Kolodec",
+                CurrentWaterLevel = 10,
+                Height = 15,
+                Length = 10,
+                Width = 10,
+                PollutionLevel = 7
+            });
+            listWates.Add(new Channel()
+            {
+                Id = 1,
+                Name = "Kolodec",
+                CriticalWaterLevel = 2,
+                CurrentWaterHeight = 5,
+                StandardWaterHeight = 4,
+                PollutionLevel = 5
+            });
+            LitresDistribution distribution = new LitresDistribution(500,"Tomato",1,"Baku",listWates);
+            ShowWaterDistrib(distribution.FindBestDistribution());
         }
 
         private void ShowWaterDistrib(Dictionary<WaterResource, double> waterDistrib)
