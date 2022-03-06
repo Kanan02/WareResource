@@ -2,16 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using WaterResourcesManager.Models.Concrete;
 
 namespace WaterResourcesManager
 {
     public class LitresForAreaCounter
     {
-        HttpClient client = new HttpClient();
+        private HttpClient _client = new HttpClient();
 
-        List<List<double>> ps = new List<List<double>>
+        //      mean daily percentage of annual daytime hours
+        // default immutable values
+        private List<List<double>> _ps = new List<List<double>>
         {
             new List<double>
             {
@@ -71,23 +75,19 @@ namespace WaterResourcesManager
         };
 
 
-
-
-
-
-        Dictionary<string, List<double>> kcs = new Dictionary<string, List<double>>
+        private Dictionary<string, List<double>> _kcs = new Dictionary<string, List<double>>
         {
-            ["Tomato"]=new List<double> {0.45,0.75,1.15,0.84 },
-            ["Potato"] = new List<double> { 0.45, 0.75, 1.15, 0.85 },
-            ["Wheat"] = new List<double> { 0.35, 0.75, 1.15, 0.45 },
-            ["Cotton"] = new List<double> { 0.45, 0.75, 1.15, 0.75 },
-            ["Carrot"] = new List<double> { 0.45, 0.75, 1.05, 0.9 },
-            ["Onion"] = new List<double> { 0.5, 0.75, 1.05, 0.85 },
-            ["Pepper"] = new List<double> { 0.35, 0.7, 1.05, 0.9 },
-            ["Cucumber"] = new List<double> { 0.45, 0.7, 0.9, 0.75 },
+            ["tomato"]=new List<double> {0.45,0.75,1.15,0.84 },
+            ["potato"] = new List<double> { 0.45, 0.75, 1.15, 0.85 },
+            ["wheat"] = new List<double> { 0.35, 0.75, 1.15, 0.45 },
+            ["cotton"] = new List<double> { 0.45, 0.75, 1.15, 0.75 },
+            ["carrot"] = new List<double> { 0.45, 0.75, 1.05, 0.9 },
+            ["onion"] = new List<double> { 0.5, 0.75, 1.05, 0.85 },
+            ["pepper"] = new List<double> { 0.35, 0.7, 1.05, 0.9 },
+            ["cucumber"] = new List<double> { 0.45, 0.7, 0.9, 0.75 }
         };
 
-        public double CalculateLitres(double area,string product, string fieldName,string city)
+        public double CalculateLitres(double area,string product, string fieldName, string city)
         {
             var request = new HttpRequestMessage
             {
@@ -99,29 +99,58 @@ namespace WaterResourcesManager
                     { "x-rapidapi-key", "b30b696ee1msh94829ab29706161p1a588bjsnda89895ffd67" },
                 },
             };
-            using (var response = client.Send(request))
+
+            dynamic content;
+            double daytimeHoursPercentage = 0;
+
+            using (var response = _client.Send(request))
             {
                 response.EnsureSuccessStatusCode();
                 var body =  response.Content.ReadAsStringAsync().Result;
-                dynamic content = JsonConvert.DeserializeObject(body);
+                content = JsonConvert.DeserializeObject(body);
 
-                double num=double.Parse( content.city.coord.lat.ToString());
-              
-                num=(Math.Round(num));
-                num = num - num % 5;
-
-                double p=ps[Convert.ToInt32(num) / 5][DateTime.Now.Month - 1];
-
-                double tmean = (double.Parse(content.list[0].temp.max.ToString()) + double.Parse(content.list[0].temp.max.ToString())) / 2 - 273.15;
-
-                double eto = (p * (0.46 * tmean + 1));
-
-
-                
-                Console.WriteLine(p);
-                Console.WriteLine(tmean);
+                daytimeHoursPercentage = double.Parse( content.city.coord.lat.ToString());
+                daytimeHoursPercentage = (Math.Round(daytimeHoursPercentage));
+                daytimeHoursPercentage = daytimeHoursPercentage - daytimeHoursPercentage % 5;
             }
-            return 0;
+
+            // Calculating eto
+            double p = _ps[Convert.ToInt32(daytimeHoursPercentage) / 5][DateTime.Now.Month - 1];
+            double tmean = (double.Parse(content.list[0].temp.max.ToString()) + double.Parse(content.list[0].temp.max.ToString())) / 2 - 273.15;
+            double eto = (p * (0.46 * tmean + 8));
+
+
+
+            // Calculating of effective rainfall
+            double precipitation = content.list[0].rain;  // in mm/day
+            double effectiveRainfall = 0;
+            if (precipitation <= 2.5) effectiveRainfall = 0.6/30 * precipitation - 10/30;
+            else effectiveRainfall = 0.8/30 * precipitation - 25/30;
+
+
+            // Getting soil data from api
+            _client = new HttpClient();
+            _client.BaseAddress = new Uri("https://localhost:7198/api/");
+            _client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            );
+            var response2 = _client.GetStringAsync("Field/1").Result;
+            Field? field = JsonConvert.DeserializeObject<Field>(response2);
+
+
+            // Getting kc
+            double kc = _kcs[product.ToLower()][field.Stage - 1];
+            double Etcrop = eto * kc;
+
+            double irrigationWaterNeed = Etcrop + (field.SAT + field.PERC + field.Wl)/30 - effectiveRainfall;  // need of l per 1m^2
+            
+            return area*irrigationWaterNeed;
         }
+
+
+
+
+
+
     }
 }

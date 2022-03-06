@@ -17,7 +17,71 @@
 //}
 
 
+using WaterDataAPI.Models.Concrete;
 using WaterResourcesManager;
+using WaterResourcesManager.Models.Abstract;
+using WaterResourcesManager.Models.Concrete;
 
-LitresForAreaCounter counter = new LitresForAreaCounter();
-counter.CalculateLitres(0, "", "", "Baku");
+//LitresForAreaCounter counter = new LitresForAreaCounter();
+//counter.CalculateLitres(0, "carrot", "", "Baku");
+
+
+
+
+
+//==============================================================================================================================================================
+
+// Gound water has more than needed
+
+Channel channel = new Channel { StandardWaterHeight = 10, CriticalWaterLevel = 10, CurrentWaterHeight = 10 };
+RainWaterReservoir rainWaterReservoir = new RainWaterReservoir { Height = 10, Width = 0.1, Length = 0.1, CurrentWaterLevel = 10 };
+GroundWaterReservoir groundWaterReservoir = new GroundWaterReservoir { Height = 10, Width = 10, Length = 10, CurrentWaterLevel = 10 };
+WaterReservoir waterReservoir = new WaterReservoir();
+
+
+
+// Rain water has more than needed
+
+//Channel channel = new Channel { StandardWaterHeight = 10, CriticalWaterLevel = 10, CurrentWaterHeight = 10 };
+//RainWaterReservoir rainWaterReservoir = new RainWaterReservoir { Height = 10, Width = 0.1, Length = 10, CurrentWaterLevel = 10 };
+//GroundWaterReservoir groundWaterReservoir = new GroundWaterReservoir { Height = 10, Width = 10, Length = 10, CurrentWaterLevel = 10 };
+//WaterReservoir waterReservoir = new WaterReservoir();
+
+
+
+// Distribution between rain ground and channel
+
+//Channel channel = new Channel { StandardWaterHeight = 10, CriticalWaterLevel = 5, CurrentWaterHeight = 10 };
+//RainWaterReservoir rainWaterReservoir = new RainWaterReservoir { Height = 10, Width = 0.1, Length = 0.01, CurrentWaterLevel = 10 };  //10
+//GroundWaterReservoir groundWaterReservoir = new GroundWaterReservoir { Height = 10, Width = 0.1, Length = 0.1, CurrentWaterLevel = 10 };
+//WaterReservoir waterReservoir = new WaterReservoir();
+
+
+
+// Not enough from all sources (taking from water reservoir)
+
+//Channel channel = new Channel { StandardWaterHeight = 10, CriticalWaterLevel = 10, CurrentWaterHeight = 5 };
+//RainWaterReservoir rainWaterReservoir = new RainWaterReservoir { Height = 10, Width = 0.1, Length = 0.01, CurrentWaterLevel = 10 };  //10
+//GroundWaterReservoir groundWaterReservoir = new GroundWaterReservoir { Height = 10, Width = 0.1, Length = 0.1, CurrentWaterLevel = 10 };
+//WaterReservoir waterReservoir = new WaterReservoir();
+
+
+
+
+//==============================================================================================================================================================
+
+
+
+List<WaterResource> waterResources = new List<WaterResource>();
+waterResources.Add(channel);
+waterResources.Add(rainWaterReservoir);
+waterResources.Add(groundWaterReservoir);
+waterResources.Add(waterReservoir);
+
+LitresDistribution litresDistribution = new LitresDistribution(100, "tomato", "", "Baku", waterResources);
+Dictionary<WaterResource, double> result = litresDistribution.FindBestDistribution();
+int a;
+a = 5;
+int b = a + 5;
+
+
