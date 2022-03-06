@@ -78,13 +78,13 @@ namespace WaterResourcesManager
         private Dictionary<string, List<double>> _kcs = new Dictionary<string, List<double>>
         {
             ["tomato"]=new List<double> {0.45,0.75,1.15,0.84 },
-            ["Potato"] = new List<double> { 0.45, 0.75, 1.15, 0.85 },
-            ["Wheat"] = new List<double> { 0.35, 0.75, 1.15, 0.45 },
-            ["Cotton"] = new List<double> { 0.45, 0.75, 1.15, 0.75 },
-            ["Carrot"] = new List<double> { 0.45, 0.75, 1.05, 0.9 },
-            ["Onion"] = new List<double> { 0.5, 0.75, 1.05, 0.85 },
-            ["Pepper"] = new List<double> { 0.35, 0.7, 1.05, 0.9 },
-            ["Cucumber"] = new List<double> { 0.45, 0.7, 0.9, 0.75 }
+            ["potato"] = new List<double> { 0.45, 0.75, 1.15, 0.85 },
+            ["wheat"] = new List<double> { 0.35, 0.75, 1.15, 0.45 },
+            ["cotton"] = new List<double> { 0.45, 0.75, 1.15, 0.75 },
+            ["carrot"] = new List<double> { 0.45, 0.75, 1.05, 0.9 },
+            ["onion"] = new List<double> { 0.5, 0.75, 1.05, 0.85 },
+            ["pepper"] = new List<double> { 0.35, 0.7, 1.05, 0.9 },
+            ["cucumber"] = new List<double> { 0.45, 0.7, 0.9, 0.75 }
         };
 
         public double CalculateLitres(double area,string product, string fieldName, string city)
@@ -117,14 +117,15 @@ namespace WaterResourcesManager
             // Calculating eto
             double p = _ps[Convert.ToInt32(daytimeHoursPercentage) / 5][DateTime.Now.Month - 1];
             double tmean = (double.Parse(content.list[0].temp.max.ToString()) + double.Parse(content.list[0].temp.max.ToString())) / 2 - 273.15;
-            double eto = (p * (0.46 * tmean + 1));
+            double eto = (p * (0.46 * tmean + 8));
+
 
 
             // Calculating of effective rainfall
             double precipitation = content.list[0].rain;  // in mm/day
             double effectiveRainfall = 0;
-            if (precipitation <= 3.75) effectiveRainfall = 0.6 * precipitation - 10;
-            else effectiveRainfall = 0.8 * precipitation - 25;
+            if (precipitation <= 2.5) effectiveRainfall = 0.6/30 * precipitation - 10/30;
+            else effectiveRainfall = 0.8/30 * precipitation - 25/30;
 
 
             // Getting soil data from api
@@ -137,13 +138,13 @@ namespace WaterResourcesManager
             Field? field = JsonConvert.DeserializeObject<Field>(response2);
 
 
-            //double irrigationWaterNeed = ;
+            // Getting kc
+            double kc = _kcs[product.ToLower()][field.Stage - 1];
+            double Etcrop = eto * kc;
 
-
-            Console.WriteLine(p);
-            Console.WriteLine(tmean);
-
-            return 0;
+            double irrigationWaterNeed = Etcrop + (field.SAT + field.PERC + field.Wl)/30 - effectiveRainfall;  // need of l per 1m^2
+            
+            return area*irrigationWaterNeed;
         }
 
 
