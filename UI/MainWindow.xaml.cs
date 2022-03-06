@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UI.Models;
 
 namespace UI
 {
@@ -30,39 +29,8 @@ namespace UI
             InitializeComponent();
             client.BaseAddress = new Uri("https://localhost:7198/api/");
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
             );
         }
-        private async void GetAllRivers()
-        {
-
-            var response = await client.GetStringAsync("Channel");
-            var rivers = JsonConvert.DeserializeObject<List<River>>(response);
-            dataGrid1.DataContext= rivers;
-
-        }
-        private async void UpdateRiver(River river)
-        {
-
-             await client.PutAsJsonAsync("channel/"+river.Id,river);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (resourcesComboBox.SelectedIndex==0)
-            {
-                this.GetAllRivers();
-            }
-
-        }
-        private async void GetLitres(double area,int productId,string fieldName)
-        {
-
-           // XXXXX.CalclateLitres(area, product, fieldName);
-           // await client.PutAsJsonAsync("channel/" + river.Id, river);
-        }
-
-
     }
 }
