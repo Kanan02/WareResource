@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1800"
-        WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized">
+        WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized" Loaded="Window_Loaded">
     <Grid>
         <!--<Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -54,7 +54,7 @@
                 <DockPanel>
                     <Label VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="20" FontWeight="DemiBold" Content="Bio Farm, Ganja" Foreground="#51ff00">
                     </Label>
-                    <Button Content="Manage" Margin="10" Padding="5" FontSize="20" HorizontalAlignment="Right">
+                    <Button Content="Manage" Margin="10" Padding="3" FontSize="20" HorizontalAlignment="Right">
 
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -143,6 +143,7 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="0.5*"/>
                         <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
@@ -153,11 +154,39 @@
                         </ComboBox>
                     </Grid>
 
-                    <Grid Grid.Row="1">
-                        <ComboBox Name="ComboBox1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="10" MaxHeight="60" MaxWidth="300">
+                    <Grid Grid.Row="2">
+                        <ComboBox Name="CropComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="10" MaxHeight="60" MaxWidth="300">
                             <ComboBoxItem FontSize="15" Content="Coffie"></ComboBoxItem>
                         </ComboBox>
                     </Grid>
+
+                    <Grid Grid.Row="3">
+                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10" MaxHeight="60" MaxWidth="300">
+                            <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Width="230" MaxHeight="60">
+
+                            </TextBox>
+                            <ComboBox VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Width="70">
+                                <ComboBoxItem FontSize="15" Content="m2"></ComboBoxItem>
+                                <ComboBoxItem FontSize="15" Content="ha"></ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Button Content="Calculate" Padding="10" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+
+                    <ScrollViewer x:Name="resultScrollView" VerticalScrollBarVisibility="Auto" Focusable="False" Grid.Row="6">
+                        <Grid x:Name="waterResultsGrid" Grid.Row="1" Margin="10">
+                                
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </Border>
             <Border Grid.Column="1" Background="DimGray" Margin="5,10,5,10" CornerRadius="10">
