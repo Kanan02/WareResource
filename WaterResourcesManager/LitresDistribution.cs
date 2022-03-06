@@ -67,11 +67,6 @@ namespace WaterResourcesManager
                                 _waterLeft -= waterInReservoir;
                             }
                         }
-                        else
-                        {
-                            waterDistributionTable.Add(_waterResources[i], 0);
-                        }
-
                     }
                 }
             }
@@ -108,10 +103,6 @@ namespace WaterResourcesManager
                                 _waterLeft -= waterInReservoir;
                             }
                         }
-                        else
-                        {
-                            waterDistributionTable.Add(_waterResources[i], 0);
-                        }
                     }
                 }
             }
@@ -138,17 +129,13 @@ namespace WaterResourcesManager
                         if ((_waterResources[i] as Channel).CurrentWaterHeight > (_waterResources[i] as Channel).CriticalWaterLevel
                             && _waterResources[i].PollutionLevel >= minPh && _waterResources[i].PollutionLevel <= maxPh)
                         {
-                            waterDistributionTable.Add(_waterResources[i], _waterLeft);
+                            waterDistributionTable.Add(_waterResources[i], _waterLeft+(_waterLeft/5));
                             _waterLeft = 0;
                         }
                         else if ((_waterResources[i] as Channel).CurrentWaterHeight > (_waterResources[i] as Channel).CriticalWaterLevel)
                         {
-                            waterDistributionTable.Add(_waterResources[i], _waterLeft * 0.2);
-                            _waterLeft -= _waterLeft * 0.2;
-                        }
-                        else
-                        {
-                            waterDistributionTable.Add(_waterResources[i], 0);
+                            waterDistributionTable.Add(_waterResources[i], (_waterLeft * 0.2)+(_waterLeft*0.2/5));
+                            _waterLeft -= (_waterLeft * 0.2)+(_waterLeft*0.2/5);
                         }
                     }
                 }
@@ -171,7 +158,7 @@ namespace WaterResourcesManager
                 {
                     if (_waterResources[i].GetType() == typeof(WaterReservoir))
                     {
-                        waterDistributionTable.Add(_waterResources[i], _waterLeft);
+                        waterDistributionTable.Add(_waterResources[i], _waterLeft+(_waterLeft/5));
                         _waterLeft = 0;
                     }
                 }
@@ -194,7 +181,7 @@ namespace WaterResourcesManager
                 {
                     if ((_waterResources[i] as Channel).CurrentWaterHeight > 0)
                     {
-                        waterDistributionTable.Add(_waterResources[i], _waterLeft);
+                        waterDistributionTable.Add(_waterResources[i], _waterLeft+(_waterLeft/5));
                         _waterLeft = 0;
                     }
                 }
