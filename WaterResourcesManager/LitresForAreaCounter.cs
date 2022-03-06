@@ -75,7 +75,7 @@ namespace WaterResourcesManager
         };
 
 
-        private Dictionary<string, List<double>> _kcs = new Dictionary<string, List<double>>
+        public readonly Dictionary<string, List<double>> _kcs = new Dictionary<string, List<double>>
         {
             ["tomato"]=new List<double> {0.45,0.75,1.15,0.84 },
             ["potato"] = new List<double> { 0.45, 0.75, 1.15, 0.85 },

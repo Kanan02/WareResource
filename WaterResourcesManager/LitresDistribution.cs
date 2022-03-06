@@ -240,9 +240,5 @@ namespace WaterResourcesManager
 
             return waterDistributionTable;
         }
-
-
-
-
     }
 }
