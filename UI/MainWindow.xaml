@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1800"
-        WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized">
+        WindowStyle="None" ResizeMode="NoResize" WindowState="Maximized" Loaded="Window_Loaded">
     <Grid>
         <!--<Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -39,7 +39,7 @@
         </Grid>-->
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.11*"></RowDefinition>
+            <RowDefinition Height="0.12*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="0.1*"></RowDefinition>
         </Grid.RowDefinitions>
@@ -52,9 +52,9 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Background="DimGray" Margin="10,10,5,10" BorderBrush="Black" BorderThickness="2" CornerRadius="10">
                 <DockPanel>
-                    <Label VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="20" FontWeight="DemiBold" Content="Bio Farm, Ganja" Foreground="#51ff00">
+                    <Label Name="FarmLabel"  VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="20" FontWeight="DemiBold" Content="Farm, City" Foreground="#51ff00">
                     </Label>
-                    <Button Content="Manage" Margin="10" Padding="5" FontSize="20" HorizontalAlignment="Right">
+                    <Button Content="Manage" Margin="10" Padding="3" FontSize="20" HorizontalAlignment="Right" Click="Button_Click">
 
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -69,7 +69,7 @@
                     <!--empty-->
                 </Grid>
             </Border>
-            <Border Grid.Column="1" Panel.ZIndex="1" Background="DimGray" Margin="5,10,5,10" BorderBrush="Black" BorderThickness="2" CornerRadius="10">
+            <Border Name="FarmRegulator" Grid.Column="1" Panel.ZIndex="1" Background="DimGray" Margin="5,10,5,10" BorderBrush="Black" BorderThickness="2" CornerRadius="10" Visibility="Hidden">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -115,7 +115,7 @@
                             <ColumnDefinition Width="0.25*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="25">Water Resources:</Label>
-                        <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="25">999</Label>
+                        <Label Name="WaterValLabel" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="25">0</Label>
                     </Grid>
                     <Grid Grid.Column="1" Margin="10">
                         <Grid.ColumnDefinitions>
@@ -123,7 +123,7 @@
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="25">Fields:</Label>
-                        <Label Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="25">999</Label>
+                        <Label Name="FieldsValLabel" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="25">0</Label>
                     </Grid>
                 </Grid>
             </Border>
@@ -139,7 +139,8 @@
             <Border Grid.Column="0" Background="DimGray" Margin="10,10,5,10" CornerRadius="10">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.7*"/>
+                        <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -147,27 +148,180 @@
                         <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
 
+                    <Grid Grid.Row="0">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25">Water Irrigation Calculator</Label>
+                    </Grid>
+                    
                     <Grid Grid.Row="1">
                         <ComboBox Name="FieldComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="10" MaxHeight="60" MaxWidth="300">
-                            <ComboBoxItem FontSize="15" Content="Coffie"></ComboBoxItem>
                         </ComboBox>
                     </Grid>
 
-                    <Grid Grid.Row="1">
-                        <ComboBox Name="ComboBox1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="10" MaxHeight="60" MaxWidth="300">
-                            <ComboBoxItem FontSize="15" Content="Coffie"></ComboBoxItem>
+                    <Grid Grid.Row="2">
+                        <ComboBox Name="CropComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="10" MaxHeight="60" MaxWidth="300">
                         </ComboBox>
                     </Grid>
+
+                    <Grid Grid.Row="3">
+                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10" MaxHeight="60" MaxWidth="300">
+                            <TextBox Name="AreaVal" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Width="230" MaxHeight="60">
+
+                            </TextBox>
+                            <ComboBox Name="MeasureUnitCB" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Width="70">
+                                <ComboBoxItem FontSize="15" Content="m2"></ComboBoxItem>
+                                <ComboBoxItem FontSize="15" Content="ha"></ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Button Content="Calculate" Padding="10" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click_3">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+
+                    <ScrollViewer x:Name="resultScrollView" VerticalScrollBarVisibility="Visible" Focusable="False" Margin="10" Grid.Row="6" Background="LightGray">
+                        <Grid x:Name="waterResultsGrid" Grid.Row="1" Margin="10">
+                                
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </Border>
             <Border Grid.Column="1" Background="DimGray" Margin="5,10,5,10" CornerRadius="10">
                 <Grid>
-                    <!--empty-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.7*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25">Real-Time Info on Water Bodies</Label>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ComboBox Name="WaterBodiesTypesListCB" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="10" MaxHeight="60" MaxWidth="500" DropDownClosed="WaterBodiesTypesListCB_DropDownClosed">
+                            <ComboBoxItem FontSize="20" Content="Channel"/>
+                            <ComboBoxItem FontSize="20" Content="GroundWaterReservoir"/>
+                            <ComboBoxItem FontSize="20" Content="RainWaterReservoir"/>
+                            <ComboBoxItem FontSize="20" Content="WaterReservoir"/>
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <ComboBox Name="WaterBodiesListCB" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="10" MaxHeight="60" MaxWidth="500">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Button VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="15" Content="SHOW" MinWidth="200" MinHeight="50" Click="Button_Click_1">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4">
+                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Content="Add new Water Resource to DB" MinWidth="400" MinHeight="25">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Content="Change selected Water Resource in DB" MinWidth="400" MinHeight="25">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="4"/>
+                            </Style>
+                        </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="6">
+                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Content="Delete selected Water Resource from DB" MinWidth="400" MinHeight="25">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <ScrollViewer x:Name="reservoirResultsScrollView" VerticalScrollBarVisibility="Visible" Focusable="False" Margin="10" Grid.Row="7" Background="LightGray">
+                        <Grid x:Name="reservoirsResultsGrid" Grid.Row="1" Margin="10">
+
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </Border>
             <Border Grid.Column="2" Background="DimGray" Margin="5,10,10,10" CornerRadius="10">
                 <Grid>
-                    <!--empty-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1.2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="2.3*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25">Real-Time Info on Fields and Soils</Label>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ComboBox Name="FieldsListCB" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="20" Margin="10" MaxHeight="60" MaxWidth="500">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Button VerticalAlignment="Top" Margin="0,10,0,0" HorizontalAlignment="Center" FontSize="15" Content="SHOW" MinWidth="200" MinHeight="50" Click="Button_Click_2">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Content="Add new Field to DB" MinWidth="400" MinHeight="25">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="4">
+                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Content="Change selected Field in DB" MinWidth="400" MinHeight="25">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <Button VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Content="Delete selected Field from DB" MinWidth="400" MinHeight="25">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <ScrollViewer x:Name="fieldsResultsScrollView" VerticalScrollBarVisibility="Visible" Focusable="False" Margin="10" Grid.Row="6" Background="LightGray">
+                        <Grid x:Name="fieldsResultsGrid" Grid.Row="1" Margin="10">
+
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </Border>
         </Grid>

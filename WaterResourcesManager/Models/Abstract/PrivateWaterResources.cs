@@ -13,7 +13,7 @@
         }
         public virtual bool IsFull()
         {
-            return CurrentWaterLevel == Height;
+            return CurrentWaterLevel >= Height;
         }
 
         public virtual double GetResourceVolume()
