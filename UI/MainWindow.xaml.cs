@@ -218,7 +218,6 @@ namespace UI
         {
             var response = client.GetStringAsync($"Field/{((ComboBoxItem)FieldsListCB.SelectedItem).Tag}").Result;
             Field? field = JsonConvert.DeserializeObject<Field>(response);
-            MessageBox.Show(field.Name.ToString());
             FieldTextBlock.FontSize = 20;
             FieldTextBlock.Text= "Name: " + field.Name+"\nPERC: "+ field.PERC + "\nSAT: " + field.SAT+"\nWl: " + field.Wl + "\nStage: " + field.Stage;
         }
