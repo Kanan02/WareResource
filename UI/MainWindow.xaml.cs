@@ -41,7 +41,7 @@ namespace UI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var responseFarm = client.GetStringAsync($"Farm/2").Result;
+            var responseFarm = client.GetStringAsync($"Farm/1").Result;
             farm = JsonConvert.DeserializeObject<Farm>(responseFarm);
             FarmLabel.Content = $"{farm.Name} Farm, {farm.City}";
 
@@ -224,7 +224,7 @@ namespace UI
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            var response = client.GetStringAsync($"Farm/2").Result;
+            var response = client.GetStringAsync($"Farm/1").Result;
             Field? field = JsonConvert.DeserializeObject<Field>(response);
             LitresDistribution distribution = null;
             int fieldId = Int32.Parse(((ComboBoxItem)FieldComboBox.SelectedItem).Tag.ToString());

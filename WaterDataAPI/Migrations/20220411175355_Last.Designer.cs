@@ -11,8 +11,8 @@ using WaterDataAPI.Data;
 namespace WaterDataAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220305230841_UsersAdded")]
-    partial class UsersAdded
+    [Migration("20220411175355_Last")]
+    partial class Last
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,6 +69,25 @@ namespace WaterDataAPI.Migrations
                             PollutionLevel = 0.0,
                             StandardWaterHeight = 0.0
                         });
+                });
+
+            modelBuilder.Entity("WaterDataAPI.Models.Concrete.Farm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Farms");
                 });
 
             modelBuilder.Entity("WaterDataAPI.Models.Concrete.Field", b =>
@@ -181,25 +200,6 @@ namespace WaterDataAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RainWaterReservoirs");
-                });
-
-            modelBuilder.Entity("WaterDataAPI.Models.Concrete.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("WaterDataAPI.Models.Concrete.WaterReservoir", b =>

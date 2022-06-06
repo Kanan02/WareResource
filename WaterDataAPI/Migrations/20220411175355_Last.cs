@@ -4,7 +4,7 @@
 
 namespace WaterDataAPI.Migrations
 {
-    public partial class CreateInitial : Migration
+    public partial class Last : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,37 @@ namespace WaterDataAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Channels", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Farms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Farms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fields",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Stage = table.Column<int>(type: "int", nullable: false),
+                    SAT = table.Column<double>(type: "float", nullable: false),
+                    PERC = table.Column<double>(type: "float", nullable: false),
+                    Wl = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fields", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,6 +129,12 @@ namespace WaterDataAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Channels");
+
+            migrationBuilder.DropTable(
+                name: "Farms");
+
+            migrationBuilder.DropTable(
+                name: "Fields");
 
             migrationBuilder.DropTable(
                 name: "GroundWaterReservoirs");

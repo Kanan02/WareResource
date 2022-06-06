@@ -122,7 +122,13 @@ namespace WaterResourcesManager
 
 
             // Calculating of effective rainfall
-            double precipitation = content.list[0].rain;  // in mm/day
+            double precipitation = 0;  // in mm/day
+            if (content.list[0].rain != null)
+            {
+                precipitation = content.list[0].rain;
+            }
+            
+
             double effectiveRainfall = 0;
             if (precipitation <= 2.5) effectiveRainfall = 0.6/30 * precipitation - 10/30;
             else effectiveRainfall = 0.8/30 * precipitation - 25/30;
@@ -146,10 +152,6 @@ namespace WaterResourcesManager
             
             return area*irrigationWaterNeed;
         }
-
-
-
-
 
 
     }

@@ -29,6 +29,8 @@ namespace WaterResourcesManager
             _neededWater = GetAmountOfWaterUsage(area, product, fieldId, city);
             _waterLeft = _neededWater;
             _city = city;
+            _waterResources= _waterResources.OrderBy(o => o.PollutionLevel).ToList();
+            _waterResources.Reverse();
         }
 
 
